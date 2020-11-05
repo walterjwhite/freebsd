@@ -1,0 +1,28 @@
+This is an example repository housing a configuration for freebsd-installer.
+
+This instructs freebsd-installer how to build a system.
+Additional instance-specific settings may be passed @ runtime.
+
+This configuration was originally adopted from my Java Linux Builder,
+which was adopted from my Python System Builder,
+which was adopted from shell scripts.
+
+Freebsd-installer is a set of shell scripts ...
+
+
+Patch Types currently supported:
+1. add packages - contents in here will be installed via freebsd pkg
+2. boot loader  - add contents to /boot/loader.conf
+3. chmod        - change permissions on files (and dirs)
+4. chown        - change owner/group on files (and dirs)
+5. downloads    - download files (and optionally verify them)
+6. extract      - extract (downloaded) files
+7. files        - place contents into the ROOT fs
+8. fstab        - modify the fstab
+9. go           - install go cmds
+10. groups      - create groups
+11. links       - create symlinks
+12. rc          - configure /etc/rc.conf
+13. run         - run script in chroot
+14. sysctl      - configure /etc/sysctl.conf
+15. users       - create users
