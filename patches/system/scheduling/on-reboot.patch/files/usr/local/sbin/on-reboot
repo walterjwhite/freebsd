@@ -1,0 +1,6 @@
+#!/bin/sh
+
+for _SCRIPT in $(find /usr/local/etc/walterjwhite/startup -type f | sort -u)
+do
+	. $_SCRIPT | logger -i -t "($_SCRIPT @reboot)"
+done

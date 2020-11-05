@@ -1,0 +1,6 @@
+#!/bin/sh
+
+sudo sync
+sudo poweroff
+
+exit ?

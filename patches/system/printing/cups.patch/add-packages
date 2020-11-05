@@ -1,0 +1,6 @@
+cups
+
+cups-filters
+
+# this directly conflicts with cups-filters and does not work?
+#foomatic-filters

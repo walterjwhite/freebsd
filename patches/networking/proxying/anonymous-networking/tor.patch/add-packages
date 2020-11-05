@@ -1,0 +1,13 @@
+# enable applications to connect through SSH tunnel when otherwise they would not be able to
+tsocks
+torsocks
+tor
+
+# TOR monitor
+#net-misc/arm
+#nyx
+#tor-arm
+
+# TOR obfuscating proxy
+#net-proxy/obfsproxy
+#obfs4proxy

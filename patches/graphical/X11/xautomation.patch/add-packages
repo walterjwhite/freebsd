@@ -1,0 +1,6 @@
+# utility to take screenshots
+scrot
+
+# utility to control X
+xdotool
+xautomation

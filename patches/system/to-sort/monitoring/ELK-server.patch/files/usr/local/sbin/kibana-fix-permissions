@@ -1,0 +1,5 @@
+#!/bin/sh
+
+chown -R kibana:kibana /var/log/kibana
+chown -R kibana:kibana /var/cache/kibana
+

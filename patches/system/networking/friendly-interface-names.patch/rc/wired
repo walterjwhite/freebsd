@@ -1,0 +1,10 @@
+# Dell Workstation 920
+ifconfig_bge0_name=wired
+
+# Dell Venue 7310
+ifconfig_ue0_name=wired
+
+# HP DV9700
+ifconfig_re0_name=wired
+
+ifconfig_wired=DHCP

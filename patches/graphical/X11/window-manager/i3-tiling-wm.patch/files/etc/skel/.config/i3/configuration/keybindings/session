@@ -1,0 +1,19 @@
+# @see: https://i3wm.org/docs/userguide.html#assign_workspace
+
+# prepare session
+
+# email
+exec --no-startup-id i3-msg 'workspace 10;exec thunderbird;'
+
+# music / media workspace
+exec --no-startup-id i3-msg 'workspace 8; exec x-terminal-emulator;'
+
+
+# Text Editor
+exec --no-startup-id i3-msg 'workspace 1; exec vscode;'
+
+#for_window [class="chromium-browser"] move container to workspace "3"
+assign [class="chromium-browser"]   3
+
+# Web Browser
+exec --no-startup-id i3-msg 'workspace 3; exec --no-startup-id launch-remote-chrome;'

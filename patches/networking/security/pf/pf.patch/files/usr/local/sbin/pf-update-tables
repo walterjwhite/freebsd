@@ -1,0 +1,8 @@
+#!/bin/sh
+
+###!/bin/sh
+
+_PARALLEL_LOOKUPS=4
+
+find /usr/local/etc/walterjwhite/firewall/wjw/dynamic -type f\
+	| xargs -L 1 -I _TABLE_FILE_ -P $_PARALLEL_LOOKUPS pf-update-table _TABLE_FILE_

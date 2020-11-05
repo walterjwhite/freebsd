@@ -1,0 +1,11 @@
+#xserver-xorg-video-intel
+drm-kmod
+intel-backlight
+
+libva-intel-driver
+libva-intel-media-driver
+
+intel-snap
+intel-pcm
+#intel-undervolt
+xf86-video-intel

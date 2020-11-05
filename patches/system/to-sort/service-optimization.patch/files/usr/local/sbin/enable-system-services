@@ -1,0 +1,37 @@
+#!/bin/sh
+
+. /etc/service-optimization/configuration.sh
+
+_HOSTNAME=$(hostname)
+
+_start_services() {
+	for _SERVICE in ${_SERVICES[$_HOST_SERVICE]}
+	do
+		_start_service
+	done
+}
+
+_start_service() {
+	start-service $_SERVICE
+	systemctl enable $_SERVICE
+}
+
+_start_host_services() {
+	echo -e "Configuring services for $_HOSTNAME"
+	for _HOST_SERVICE in ${_HOST_SERVICES[$_HOSTNAME]}
+	do
+		_start_services
+	done
+}
+
+_up_interface() {
+	_INTERFACE=$(ifstat -p | sed "1,3d" | awk {'print$1'} | awk 'NR%2==1' | grep -v "^lo$" | head -1)
+}
+
+_get_hostname() {
+	_HOSTNAME=$(dhcpcd -U eth0 2>/dev/null| grep host_name | sed -e "s/^.*\=//")
+}
+
+_up_interface
+_get_hostname
+_start_host_services

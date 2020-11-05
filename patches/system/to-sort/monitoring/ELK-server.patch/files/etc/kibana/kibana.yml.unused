@@ -1,0 +1,4 @@
+# we want kibana to be available to all hosts on the network
+# alternatively, we can tunnel into it
+server.host: dda1.w.l.2357
+

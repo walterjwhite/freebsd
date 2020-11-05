@@ -1,0 +1,6 @@
+# 640 = permissions
+# 30  = 30 instances
+# *   = no size limit
+# @T00= rotate logs at midnight
+# B   = do not insert information message into log as it is a binary format
+/var/log/dnstap/dnstap.log 640 30 * @T00 B

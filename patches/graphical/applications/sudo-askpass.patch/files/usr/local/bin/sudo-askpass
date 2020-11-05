@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# for 2-factor authentication
+# 1 is user password
+# 2 is user's token
+zenity --password

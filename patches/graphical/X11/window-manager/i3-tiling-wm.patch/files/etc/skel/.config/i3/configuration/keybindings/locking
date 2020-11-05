@@ -1,0 +1,12 @@
+# lock computer (Mod + l) (modified to mirror windows)
+bindsym $mod+l exec $dir/i3lock-wrapper
+
+# enable / disable locker / DPMS (for when watching movies / videos)
+bindsym $mod+shift+l exec $dir/i3lock-toggle
+
+# lock after idle for 5 minutes
+# this causes troubles
+exec xautolock -time 5 -locker $dir/i3lock-wrapper &
+
+# kill SSH agent (need to restart manually)
+exec xautolock -time 5 -locker ssh-agent -k &

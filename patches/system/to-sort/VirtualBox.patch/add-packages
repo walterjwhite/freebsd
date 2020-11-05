@@ -1,0 +1,16 @@
+virtualbox-ose
+virtualbox-ose-additions
+
+# this is required for a headless server
+#virtualbox-ext-pack
+
+#app-emulation/virtualbox-modules
+#virtualbox-guest-x11
+#virtualbox-guest-dkms
+#virtualbox-guest-additions-iso
+
+# this is if we're running as a guest in another host, which we're not, we're the host
+##app-emulation/virtualbox-guest-additions
+## provides RDP and USB 2.0 support (not necessary)
+##app-emulation/virtualbox-extpack-oracle
+##app-emulation/virtualbox-additions

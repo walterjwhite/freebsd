@@ -1,0 +1,3 @@
+# this is required if we're not using gnome
+# otherwise, thunar won't have any icons
+gnome-icon-theme

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+pkg update
+pkg upgrade -y
+
+# install any patches
+freebsd-update fetch
+freebsd-update install

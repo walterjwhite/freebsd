@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# @see: https://github.com/GuillaumeSeren/i3lock-wrapper
+
+# Mute sound
+mute
+
+# Launch i3lock fork
+# -u (disable unlock indicator, displayed when typing)
+# -n (do not fork after starting)
+# -d (turn off monitor via DPMS)
+# -e (ignore empty passwords)
+# -f (show failed attempts)
+# -c (show black background color)
+#i3lock -n -d -e -f -c 000000 -u &
+i3lock -n -e -c 000000 -u &
+
+# waits until i3lock exits
+wait
+
+# unmute
+mute
+
+# Needed by systemd
+exit 0

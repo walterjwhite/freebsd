@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ -n "$DISPLAY" ]
+then
+	xsel -b -c >& | logger -i -t  '/usr/local/sbin/clear-clipboard' "clearing clipboard"
+else
+	logger -i -t  '/usr/local/sbin/clear-clipboard' 'unable to clear, DISPLAY unset'
+fi

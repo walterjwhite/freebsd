@@ -1,0 +1,4 @@
+username=sonarqube
+uid=514
+system=True
+shell=/usr/bin/false

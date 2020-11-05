@@ -1,0 +1,5 @@
+_SOURCE=dbeaver-ce-latest-linux.gtk.x86_64.tar.gz
+_CONTENTS=dbeaver
+_TARGET=/opt/jkiss.org/dbeaver
+
+_CLEAN=/opt/jkiss.org/dbeaver

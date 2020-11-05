@@ -1,0 +1,4 @@
+path=/etc/crontab
+options="-R"
+owner=root
+group=wheel

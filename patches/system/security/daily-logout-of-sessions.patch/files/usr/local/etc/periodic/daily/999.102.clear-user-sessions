@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/local/sbin/clear-user-sessions | logger -i -t  "clear-user-sessions (cron @daily)"

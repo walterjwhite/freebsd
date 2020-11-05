@@ -1,0 +1,11 @@
+xorg
+
+#xserver-xorg-video-all
+#mesa-utils
+#xserver-xorg-input-evdev
+
+#xserver-xorg-video-nouveau
+
+#xorg-server
+#xorg-x11
+#xorg-drivers

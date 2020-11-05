@@ -1,0 +1,7 @@
+JAVA_VERSION=15
+JAVA_HOME=/usr/local/openjdk${JAVA_VERSION}
+
+BC_VERSION=1.65
+
+_SOURCE=bcprov-jdk15on-${BC_VERSION}.jar 
+_TARGET=${JAVA_HOME}/lib/security/java.security

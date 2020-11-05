@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ -n "$_ROOT" ]
+then
+  exit 1
+fi
+
+# update mlocate database of files
+/usr/libexec/locate.updatedb

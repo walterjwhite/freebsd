@@ -1,0 +1,4 @@
+path=/etc/ssh
+options="-R"
+owner=sshd
+group=ssh

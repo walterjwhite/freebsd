@@ -1,0 +1,79 @@
+#!/bin/sh
+
+# source _MAIN_LIBRARIES/prerequisites
+
+cd /tmp
+
+_exists() {
+	_ok=1
+
+	for _FILE_PATH in $@
+	do
+		if [ ! -e $_FILE_PATH ]
+		then
+			echo "$_FILE_PATH does NOT exist"
+			_ok=0
+		fi
+	done
+
+	if [ "$_ok" -ne "1" ]
+	then
+    echo "Exiting as required files do NOT exist"
+		exit 1
+	fi
+}
+
+_exists $_ROOT/usr/local/etc/elasticsearch/jvm.options
+
+#unzip downloads/beats-dashboards-1.1.0.zip
+
+#cd beats-dashboards-*
+
+# load the template into elastic ... we need to have elastic running, right
+#./load.sh
+
+# start elasticsearch so we can upload the template
+
+mkdir -p $_ROOT/var/lib/logstash
+mkdir -p $_ROOT/var/log/logstash
+
+# make this an optional item when the server is first started
+#service elasticsearch start
+#
+## load filebeat index template into elastic search
+#curl -XPUT 'http://localhost:9200/_template/filebeat?pretty' -d@filebeat-index-template.json
+#
+#service elasticsearch stop
+
+# generate SSL certificate
+#cd /etc/ssl
+#openssl req -subj '/CN=dda1.w.l.2357/' -x509 -days 3650 -batch -nodes -newkey rsa:2048 -keyout private/logstash-forwarder.key -out certs/logstash-forwarder.crt
+
+# distribute SSL certificate to clients
+# cp /etc/pki/tls/certs/logstash-forwarder.cert /etc/pki/tls/certs
+
+###_contains_updated_limits=$(/usr/local/bin/grep -Pc elasticsearch /etc/security/limits.conf)
+###if [ -n "$_contains_updated_limits" ] && [ "$_contains_updated_limits" -eq "0" ]
+###then
+###	echo -e "# ElasticSearch settings:"    >> /etc/security/limits.conf
+###	echo -e "elasticsearch - nofile 65536" >> /etc/security/limits.conf
+###fi
+
+# JDK9+ logging option is incorrect for JDK11
+gsed -i "s/^9-:-Xlog:gc/#9-:-Xlog:gc/" $_ROOT/usr/local/etc/elasticsearch/jvm.options
+gsed -i "s/^\-XX\:+UseParNewGC/#\-XX\:+UseParNewGC/" $_ROOT/usr/local/etc/elasticsearch/jvm.options
+
+# clear up these warnings during the build process
+gsed -i "s/^\-XX\:+UseConcMarkSweepGC/#\-XX\:+UseConcMarkSweepGC/" $_ROOT/usr/local/etc/elasticsearch/jvm.options
+gsed -i "s/^\-XX\:CMSInitiatingOccupancyFraction/#\-XX\:CMSInitiatingOccupancyFraction/" $_ROOT/usr/local/etc/elasticsearch/jvm.options
+gsed -i "s/^\-XX\:+UseCMSInitiatingOccupancyOnly/#\-XX\:+UseCMSInitiatingOccupancyOnly/" $_ROOT/usr/local/etc/elasticsearch/jvm.options
+
+# deprecated in Java 9
+gsed -i "s/^.*10\-\:\-XX\:\-UseConcMarkSweepGC/#10\-\:\-XX\:\-UseConcMarkSweepGC/" $_ROOT/usr/local/etc/elasticsearch/jvm.options
+
+gsed -i "s/^#10\-\:\-XX\:\-UseCMSInitiatingOccupancyOnly/10\-\:\-XX\:\-UseCMSInitiatingOccupancyOnly/" $_ROOT/usr/local/etc/elasticsearch/jvm.options
+gsed -i "s/^#10\-\:\-XX\:+UseG1GC/10\-\:\-XX:+UseG1GC/" $_ROOT/usr/local/etc/elasticsearch/jvm.options
+gsed -i "s/^#10\-\:\-XX\:G1ReservePercent/10\-\:\-XX\:G1ReservePercent/" $_ROOT/usr/local/etc/elasticsearch/jvm.options
+gsed -i "s/^#10\-\:\-XX\:InitiatingHeapOccupancyPercent/10\-\:\-XX\:InitiatingHeapOccupancyPercent/" $_ROOT/usr/local/etc/elasticsearch/jvm.options
+
+cp $_ROOT/usr/local/etc/elasticsearch/jvm.options $_ROOT/usr/local/etc/logstash/jvm.options

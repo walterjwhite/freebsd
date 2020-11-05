@@ -1,0 +1,4 @@
+vlc
+mplayer
+# this actually plays videos more smoothly out of the box than both vlc and mplayer
+mpv

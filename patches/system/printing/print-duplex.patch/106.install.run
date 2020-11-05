@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd /tmp
+
+app-install $(zfs list -o mountpoint | grep projects)/active/utilities/print-duplex.git

@@ -1,0 +1,5 @@
+username=root
+shell=/usr/local/bin/zsh
+
+# specify password hash here
+#password=''

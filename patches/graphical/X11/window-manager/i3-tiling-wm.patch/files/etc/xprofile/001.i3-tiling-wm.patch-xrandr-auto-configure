@@ -1,0 +1,31 @@
+#!/usr/local/bin/bash
+
+/usr/local/bin/xrandr-auto-configure
+
+# this puts all odd numbered workspaces on one monitor
+# and even on the other
+# TODO: this doesn't appear to actually work
+if [ ! -e /tmp/$USER/display/displays ]
+then
+	logger -i -t  "/etc/xprofile/001.i3-tiling-wm.patch-xrandr-auto-configure" "No graphical environment detected, exiting"
+fi
+
+_lines=$(cat /tmp/$USER/display/displays | wc -l)
+
+rm -f ~/.config/i3/configuration/displays
+if [ "$_lines" -gt "1" ]
+then
+	_display_index=1
+	for _display in $(cat /tmp/$USER/display/displays)
+	do
+		i=$_display_index
+		
+		while [ "$i" -le "18" ]
+		do
+			echo -e "workspace $i output $_display" >> ~/.config/i3/configuration/displays
+			((i=i+${_lines}))
+		done
+		
+		((_display_index=$_display_index+1))
+	done
+fi

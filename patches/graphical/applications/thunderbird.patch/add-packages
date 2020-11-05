@@ -1,0 +1,6 @@
+# integrated calendar and contact support
+thunderbird
+#xul-ext-lightning
+
+# lightning has issues with google calendar, it cannot update the events for some reason
+#thunderbird-lightning

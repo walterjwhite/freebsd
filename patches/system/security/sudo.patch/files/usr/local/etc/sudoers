@@ -1,0 +1,8 @@
+root	ALL=(ALL) ALL
+
+#includedir /usr/local/etc/sudoers.d
+
+Defaults log_output
+# Defaults iolog_dir=/var/log/sudo-io/%{user}
+Defaults!/usr/local/bin/sudoreplay !log_output
+Defaults!/sbin/reboot !log_output

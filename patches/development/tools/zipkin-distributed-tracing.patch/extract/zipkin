@@ -1,0 +1,13 @@
+_ZIPKIN_VERSION=2.12.9
+_SOURCE=zipkin-server-${_ZIPKIN_VERSION}-exec.jar
+#_CONTENTS=zipkin-server-${_ZIPKIN_VERSION}-exec.jar
+_TARGET=/opt/zipkin.io/${_ZIPKIN_VERSION}/zipkin-server-exec.jar
+
+#wget https://zipkin.io/quickstart.sh -O zipkin-quickstart.sh
+#bash zipkin-quickstart.sh
+
+
+#echo -e "#!/usr/local/bin/env bash"               >  /usr/bin/zipkin-server
+#echo -e "java -jar ${_TARGET_FILE}" >> /usr/bin/zipkin-server
+
+#chmod +x /usr/bin/zipkin-server

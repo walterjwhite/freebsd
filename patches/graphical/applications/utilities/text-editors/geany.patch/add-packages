@@ -1,0 +1,5 @@
+geany
+# I don't use any of these and it doesn't compile
+#dev-util/geany-plugins
+#geany-themes
+geany-plugins

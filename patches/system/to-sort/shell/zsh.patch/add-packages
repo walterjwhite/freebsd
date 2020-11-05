@@ -1,0 +1,10 @@
+zsh
+zsh-autosuggestions
+zsh-completions
+zsh-syntax-highlighting
+
+#gentoo-zsh-completions
+#zsh-lovers
+
+# this appears to have been dropped
+#app-shells/funtoo-zsh-completions

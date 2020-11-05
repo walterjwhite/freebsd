@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# extract logs for analysis
+if [ "$#" -lt "1" ]
+then
+	echo -e "Please specify log archive to extract."
+	exit 1
+else
+	_LOG_ARCHIVE_FILE=$1
+	shift
+fi
+
+
+
+_SESSION_TIMESTAMP=$(date +%Y.%m.%d.%H.%M.%S)
+_OUTPUT_LOG_DIRECTORY=/tmp/logs-${_SESSION_TIMESTAMP}
+
+mkdir -p $_OUTPUT_LOG_DIRECTORY
+
+tar Jxf $_LOG_ARCHIVE_FILE -C $_OUTPUT_LOG_DIRECTORY

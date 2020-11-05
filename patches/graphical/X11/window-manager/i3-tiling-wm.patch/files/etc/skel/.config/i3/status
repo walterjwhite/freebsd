@@ -1,0 +1,18 @@
+general {
+        colors = true
+        interval = 5
+        output_format = "i3bar"
+}
+
+order = "ethernet bge0"
+order += "tztime local"
+
+ethernet bge0 {
+	# if you use %speed, i3status requires the cap_net_admin capability
+	format_up = "E: %ip (%speed)"
+	format_down = "E: down"
+}
+
+tztime local {
+	format = "%Y-%m-%d %H:%M:%S"
+}

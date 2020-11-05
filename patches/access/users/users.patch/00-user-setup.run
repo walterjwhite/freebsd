@@ -1,0 +1,62 @@
+#!/bin/sh
+
+if [ -n "$_ROOT" ]
+then
+	exit 1
+fi
+
+set_permissions_for_user() {
+	local _user=$1
+	local _home=$2
+	local _group=$_user
+
+	if [ "$_user" = "root" ]
+	then
+		_group="wheel"
+	fi
+
+	echo -e "configuring permissions for:$_user ($_home)"
+
+	# configure user home directory permissions
+	chown -R $_user:$_group $_home
+	chmod 700 $_home
+
+	# only attempt chmod if the directory exists ...
+	if [ -d "$_home/.ssh" ]
+	then
+		chmod 700 $_home/.ssh
+
+		# ensure id files are only read/write by the given user
+		if [ -e "$_home/.ssh/id*" ]
+		then
+			chmod 600 $_home/.ssh/id*
+		fi
+
+		if [ -e "$_home/.ssh/authorized_keys" ]
+		then
+			chmod 600 $_home/.ssh/authorized_keys
+		fi
+	fi
+}
+
+configure_users() {
+	for USER in $(ls /home)
+	do
+		set_permissions_for_user $USER "/home/$USER"
+	done
+}
+
+configure_sudo() {
+	# ensure we don't receive prompts ...
+	mkdir -p /var/db/sudo/lectured
+
+	grep wheel /etc/group\
+		| cut -d ':' -f4\
+		| tr ',' '\n'\
+		| xargs -L 1 -I _USER_ touch /var/db/sudo/lectured/_USER_
+}
+
+configure_users
+set_permissions_for_user "root" "/root"
+
+configure_sudo

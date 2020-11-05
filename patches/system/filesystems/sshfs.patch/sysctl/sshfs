@@ -1,0 +1,2 @@
+# @see: https://forums.freebsd.org/threads/sshfs-user-permission-denied.24945/
+vfs.usermount=1

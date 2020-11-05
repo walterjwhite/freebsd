@@ -1,0 +1,4 @@
+# this interferes with kibana as it needs node10
+#npm
+
+py37-httpie

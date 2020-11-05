@@ -1,0 +1,67 @@
+#!/bin/sh
+
+# examples:
+# send-command-to-all -h=ddw1,dlw -m="sudo poweroff"
+
+# hosts to send message to
+# message to send
+
+# send as sysconfig (sudo privileges)
+# remote does not belong to any groups (ssh, sudo)
+
+_is_root() {
+	if [ "$EUID" -ne 0 ]
+	then
+		echo "Please run as root"
+		exit 2
+	fi
+}
+
+_cli() {
+	for i in "$@"
+	do
+		case $i in
+			-h=*)
+				_HOSTS="${i#*=}"
+				shift
+				;;
+			-m=*)
+				_MESSAGE="${i#*=}"
+				shift
+				;;
+			*)
+				;;
+		esac
+	done
+}
+
+_validate() {
+	if [ -z "$_HOSTS" ]
+	then
+		echo -e "Please specify a target host(s) to send the message.(comma "," separated)"
+		exit 1
+	fi
+	
+	if [ -z "$_MESSAGE" ]
+	then
+		echo -e "Please specify a message."
+		exit 2
+	fi
+}
+
+_send() {
+	for _HOST in $(echo -e $_HOSTS | tr ',' '\n')
+	do
+		_send_single
+	done
+}
+
+_send_single() {
+	sudo -u sysconfig "ssh $_HOST $_MESSAGE"
+}
+
+_is_root
+_cli $@
+_validate
+
+_send

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+_STEP_SIZE=5
+
+aumix -v ${_OPERATION}${_STEP_SIZE}

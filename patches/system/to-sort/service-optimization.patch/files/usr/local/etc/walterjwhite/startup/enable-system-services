@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# changed from hourly to daily as I don't make that many changes
+/usr/local/sbin/enable-system-services

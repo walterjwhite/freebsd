@@ -1,0 +1,9 @@
+pf_enable="YES"
+
+# migrate scripts to "app"
+# define YOUR own rules
+#pf_rules="/usr/local/etc/walterjwhite/firewall/wjw/rules.pf"
+
+pf_flags=""
+pflog_enable="YES"
+pflog_logfile="/var/log/pflog"

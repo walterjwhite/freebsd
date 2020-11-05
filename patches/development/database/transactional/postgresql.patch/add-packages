@@ -1,0 +1,5 @@
+postgresql12-client
+postgresql12-server
+# this pulls in postgresl 9.5
+#dev-db/postgis
+#libpqxx-4.0v5

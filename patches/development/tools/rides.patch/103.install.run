@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd /tmp
+
+app-install github.com/walterjwhite/rides.git

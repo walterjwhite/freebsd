@@ -1,0 +1,2 @@
+# without quotes, this does NOT work
+exec "xset +dpms dpms 300 300 300"

@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# @see: https://wiki.archlinux.org/index.php/Display_Power_Management_Signaling
+_disable_dpms() {
+	xset s off -dpms
+}
+
+_enable_dpms() {
+	xset +dpms dpms 300 300 300
+}
+
+_is_dpms_enabled() {
+	xset q | grep -c "DPMS is Enabled"
+}
+
+_toggle_dpms() {
+	_dpms_status=$(_is_dpms_enabled)
+	if [ "$_dpms_status" -eq "1" ]
+	then
+		_disable_dpms
+	else
+		_enable_dpms
+	fi
+}
+
+xautolock -toggle
+_toggle_dpms
+
+
+# Needed by systemd
+exit 0

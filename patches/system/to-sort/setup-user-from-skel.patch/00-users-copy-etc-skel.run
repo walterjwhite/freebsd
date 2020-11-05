@@ -1,0 +1,31 @@
+#!/bin/sh
+
+cd /tmp
+
+
+_extract() {
+	tar -f - -cp -C /etc/skel . | tar -f - -xp -C "$user_home_directory"
+
+	group=$user
+	if [ "$user" = "root" ]
+	then
+		group="wheel"
+	fi
+
+	chown -R $user:$group "$user_home_directory"
+}
+
+for user in $(grep -v 'nologin' /etc/passwd | grep /home/ | grep -v /bin/false | grep -v git-shell | grep -v git-annex-shell | cut -f1 -d':')
+do
+	user_home_directory=$(grep $user /etc/passwd | awk -F ':' {'print$6'})
+	if [ -e "$user_home_directory" ]
+	then
+		_extract
+	fi
+done
+
+# setup root user
+user=root
+user_home_directory=/root
+
+_extract

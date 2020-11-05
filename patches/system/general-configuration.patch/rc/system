@@ -1,0 +1,9 @@
+syslogd_flags="-ss"
+syslogd_enable="YES"
+
+sshd_enable="YES"
+ntpdate_enable="YES"
+powerd_enable="YES"
+
+
+

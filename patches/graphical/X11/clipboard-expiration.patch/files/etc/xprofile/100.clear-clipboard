@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# changed to run every 5 minutes rather than every minute
+gnu-watch -n 300 clear-clipboard >& /dev/null &

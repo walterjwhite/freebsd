@@ -1,0 +1,62 @@
+#!/bin/sh
+
+# restarts all services in /usr/local/etc/walterjwhite/restart-service IF
+# the service is enabled in the default runlevel OR
+# the service crashed, is running is forked, or is starting
+_restart_services_() {
+	logger -i -t  "restart-service" "starting restart of selected services"
+
+	for _service in $(ls /usr/local/etc/walterjwhite/restart-service | sort -u)
+	do
+		_restart_service_
+	done
+
+	logger -i -t  "restart-service" "completed restart of selected services"
+}
+
+_restart_service_() {
+	. /usr/local/etc/walterjwhite/restart-service/$_service
+
+	_is_restart_
+	if [ "$?" -eq "1" ]
+	then
+		if [ -z "$_COMMAND" ]
+		then
+			_COMMAND="service $SERVICE restart"
+		fi
+
+		if [ -z "$SERVICE_TIMEOUT" ]
+		then
+			SERVICE_TIMEOUT=30
+		fi
+
+		timeout $SERVICE_TIMEOUT $_COMMAND 2>&1 | logger -i -t  "restart-service: $_service"
+	else
+		logger -i -t  "restart-service: $_service" "not restarting service as it is not enabled or (running, crashed)"
+	fi
+
+	unset _COMMAND
+	unset SERVICE
+	unset SERVICE_TIMEOUT
+}
+
+_is_restart_() {
+	if [ -e /etc/runlevels/default/$SERVICE ]
+	then
+		return 1
+	fi
+
+	timeout 1 /sbin/service $_service status > /dev/null 2>&1
+	_status=$?
+
+	case $_status in
+		32|0|8|124)
+			return 1
+			;;
+		*)
+			return 0
+			;;
+	esac
+}
+
+_restart_services_

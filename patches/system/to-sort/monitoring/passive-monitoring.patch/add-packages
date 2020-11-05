@@ -1,0 +1,13 @@
+#nmon
+p0f
+
+# not actively used
+# use tcpdump instead
+#netsniff-ng
+
+dsniff
+
+#pads
+
+# this adds X11 deps (cairo, wayland, mesa-libs)
+#tcpflow

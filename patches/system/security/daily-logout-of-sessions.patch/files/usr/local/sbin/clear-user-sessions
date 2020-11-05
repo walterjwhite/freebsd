@@ -1,0 +1,16 @@
+#!/bin/sh
+
+logger -i -t  '/usr/local/sbin/clear-user-sessions' "clearing user sessions"
+
+# kill SSH / X sessions
+who | awk {'print$1'} | grep -v root\
+	| xargs -L 1 -I _USER_ pkill -u _USER_ 2>&1\
+	| logger -i -t  '/usr/local/sbin/clear-user-sessions' "cleared user session: $u"
+
+
+# kill tty sessions
+who | awk {'print$2'}\
+	| xargs -L 1 -I _TTY_ pkill -t _TTY_ 2>&1\
+	| logger -i -t  '/usr/local/sbin/clear-user-sessions' "cleared user session"
+
+logger -i -t  '/usr/local/sbin/clear-user-sessions' "cleared user sessions"

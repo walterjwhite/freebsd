@@ -1,0 +1,24 @@
+SocksPort 127.0.0.1:9050
+SocksPolicy accept 127.0.0.1
+SocksPolicy reject *
+
+#AllowUnverifiedNodes middle,rendezvous
+Log notice syslog
+RunAsDaemon 1
+#User debian-tor
+#Group debian-tor
+
+DataDirectory /var/lib/tor
+
+ExitNodes {us}
+StrictNodes 1
+
+##################################################
+# Enable DNS
+DNSPort 127.0.0.1:5353
+
+AutomapHostsOnResolve 1
+AutomapHostsSuffixes .exit,.onion
+
+# our firewall only permits these outbound ports
+ReachableORAddresses *:443

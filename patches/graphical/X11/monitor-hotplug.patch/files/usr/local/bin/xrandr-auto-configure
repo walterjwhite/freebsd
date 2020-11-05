@@ -1,0 +1,108 @@
+#!/bin/sh
+
+_CONFIGURATION_DIRECTORY=/usr/local/etc/walterjwhite/monitor-hotplug
+
+_log() {
+	logger -i -t  "/usr/bin/xrandr-auto-configure" "$1"
+}
+
+is_connected() {
+	local _monitor=$1
+
+	_log "checking connection: $_monitor"
+
+	for LINE in $(echo -e $CONNECTED_MONITORS)
+	do
+		local _matches=$(echo $LINE | /usr/local/bin/grep -Pc "^${_monitor}\$")
+		if [ "$_matches" -ge "1" ]
+		then
+			_log "connected: $_monitor"
+
+			return 1
+		fi
+	done
+
+	disable_disconnected_display "$_monitor"
+
+	return 0
+}
+
+are_connected() {
+	for monitor in $@
+	do
+		is_connected $monitor
+		if [ "$?" -eq "0" ]
+		then
+			_log "not connected: $(echo -e $1 | tr '\n' ' ')"
+
+			return 0
+		fi
+	done
+
+	_log "group is connected: $(echo -e $1 | tr '\n' ' ')"
+	return 1
+}
+
+configure_display() {
+	local _layout="$2"
+
+	are_connected $1
+	if [ "$?" -eq "1" ]
+	then
+		_log "configuring layout: $_layout"
+
+		xrandr "$_layout"
+
+		return 1
+	fi
+
+	return 0
+}
+
+disable_disconnected_display(){
+	_monitor=$1
+
+	_log "disconnecting: $_monitor"
+	xrandr "--output $_monitor --off" 2>/dev/null
+}
+
+# determine what is connected
+CONNECTED_MONITORS=$(xrandr | grep connected | grep -v disconnected | awk {'print$1'})
+
+xrandr_configure() {
+	rm -f /tmp/$USER/display
+	mkdir -p /tmp/$USER
+
+	for configuration in $(find $_CONFIGURATION_DIRECTORY -type f | grep displays$)
+	do
+		displays=$(cat $configuration)
+
+		are_connected "$displays"
+		if [ "$?" -eq "1" ]
+		then
+			_log "configuring layout: $(basename $configuration)"
+
+			configuration_directory=$(dirname $configuration)
+			command=$(cat $configuration_directory/configuration)
+#			xrandr $command | logger -i -t  "/usr/bin/xrandr-auto-configure"
+			xrandr $command | _log
+
+			ln -s $configuration_directory /tmp/$USER/display
+
+			return
+		fi
+	done
+}
+
+
+_log "##################################################"
+_log "configuring monitor layout: $(date):"
+_log "xrandr output:"
+_log "$CONNECTED_MONITORS"
+
+xrandr_configure
+
+_log "completed configuring monitor layout: $(date):"
+_log "##################################################"
+
+exit 0

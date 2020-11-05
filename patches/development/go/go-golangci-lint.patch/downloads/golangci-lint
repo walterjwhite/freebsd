@@ -1,0 +1,3 @@
+uri=https://github.com/golangci/golangci-lint/releases/download/v1.26.0/golangci-lint-1.26.0-freebsd-amd64.tar.gz
+signature=7f2e797b76f64c966f8e142b939f95f9809b438eceb8cea3908582524e8112f7
+filename=golangci-lint-1.26.0-freebsd-amd64.tar.gz

@@ -1,0 +1,6 @@
+clear_tmp_enable="YES"
+sendmail_enable="NONE"
+
+# Set dumpdev to "AUTO" to enable crash dumps, "NO" to disable
+dumpdev="AUTO"
+

@@ -1,0 +1,23 @@
+bar {
+    status_command i3status --config ~/.config/i3/status
+    tray_output primary
+
+    # press modifier key to see status bar!
+    mode              hide
+    workspace_buttons yes
+    # used by NetworkManager, pidgin
+    tray_output       primary
+    
+    #font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+    font pango:DejaVu Sans Mono, Icons 8
+
+    colors {
+        background #000000
+        statusline #ffffff
+
+        focused_workspace  #ffffff #285577
+        active_workspace   #ffffff #333333
+        inactive_workspace #888888 #222222
+        urgent_workspace   #ffffff #900000
+    }
+}

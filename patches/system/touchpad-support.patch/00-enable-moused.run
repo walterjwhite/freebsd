@@ -1,0 +1,15 @@
+#!/bin/sh
+
+_enable() {
+	sysrc moused_enable="YES"
+}
+
+_laptop=$(dmidecode\
+| grep "Product Name"\
+| cut -d ':' -f2\
+| /usr/local/bin/grep -Pc "(HP Pavilion dv9700|Venue 11 Pro 7130 vPro)")
+
+if [ "$_laptop" -eq "1" ]
+then
+	_enable
+fi

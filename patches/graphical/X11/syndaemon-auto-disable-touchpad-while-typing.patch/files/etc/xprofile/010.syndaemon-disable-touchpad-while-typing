@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+syndaemon -i 1 -t -K -R -d
+

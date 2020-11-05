@@ -1,0 +1,4 @@
+path=/usr/local/etc/sudoers
+options="-R"
+owner=root
+group=wheel

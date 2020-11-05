@@ -1,0 +1,4 @@
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+E exit
+
+#bindsym XF86PowerOff exec $dir/i3-exit

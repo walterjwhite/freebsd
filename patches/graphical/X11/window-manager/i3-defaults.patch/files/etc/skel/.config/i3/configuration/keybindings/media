@@ -1,0 +1,20 @@
+##################################################
+# media shortcuts
+#bindsym XF86AudioRaiseVolume exec /usr/bin/pulseaudio-raise-volume
+#bindsym XF86AudioLowerVolume exec /usr/bin/pulseaudio-lower-volume
+
+bindsym XF86AudioMute exec mute
+bindsym $mod+m exec mute
+
+# use a more generic configuration instead
+# have vlc instead
+#bindsym XF86AudioPlay exec parole -p
+#bindsym XF86AudioNext exec parole -N
+#bindsym XF86AudioPrev exec parole -P
+
+bindsym XF86MonBrightnessDown exec xbacklight - 10
+bindsym XF86MonBrightnessUp   exec xbacklight + 10
+
+bindsym $mod+ctrl+Up exec volume-up
+bindsym $mod+ctrl+Down exec volume-down
+bindsym $mod+ctrl+M exec volume-mute

@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# 1. lookup records and convert to IP addresses
+# 2. write to file
+# 3. replace table with file contents
+if [ "$#" -ne "1" ]
+then
+	echo "Table Filename is required."
+	exit 1
+fi
+
+_TEMP_TABLE_FILE=$(mktemp)
+_TABLE_NAME=$(basename $1)
+
+cat $1\
+	| tr ',' '\n'\
+	| xargs -L 1 -I _QUERY dig +short +timeout=1 _QUERY\
+	| /usr/local/bin/grep -Po "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"\
+	| sort -u > $_TEMP_TABLE_FILE
+
+# NOTE: we must allocate sufficient table size in order to replace its contents
+# a replace operation creates a new table then deletes the old table (so we must allocate at least 2x the expected table size)
+pfctl -t $_TABLE_NAME -T replace -f $_TEMP_TABLE_FILE
+
+rm -f $_TEMP_TABLE_FILE

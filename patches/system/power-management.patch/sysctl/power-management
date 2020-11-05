@@ -1,0 +1,2 @@
+# https://wiki.freebsd.org/TuningPowerConsumption
+dev.cpu.0.cx_lowest=C2

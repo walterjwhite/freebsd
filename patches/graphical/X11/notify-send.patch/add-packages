@@ -1,0 +1,5 @@
+notify-osd
+libnotify
+notification-daemon
+
+#libnotify-bin

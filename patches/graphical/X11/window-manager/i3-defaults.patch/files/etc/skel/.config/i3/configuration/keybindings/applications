@@ -1,0 +1,19 @@
+##################################################
+# application shortcuts
+# start a terminal
+# this is problematic on Ubuntu (gnome-terminal)
+# remove gnome terminal
+#bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec terminal
+
+bindsym $mod+t exec file-manager
+bindsym $mod+u exec thunderbird
+
+bindsym $mod+c exec launch-remote-chrome
+
+bindsym $mod+g exec geany
+bindsym $mod+i exec intellij
+#bindsym $mod+a exec atom
+bindsym $mod+v exec vscode
+
+bindsym $mod+d exec dmenu_run

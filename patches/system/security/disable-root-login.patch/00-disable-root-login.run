@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# change root shell to /sbin/nologin, effectively disabling root
+# added timeout for systems that prompt user for password to prevent blocking
+####timeout 5 chsh -s /sbin/nologin root

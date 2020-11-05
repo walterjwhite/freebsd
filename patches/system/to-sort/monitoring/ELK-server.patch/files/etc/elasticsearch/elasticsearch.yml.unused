@@ -1,0 +1,9 @@
+# only allow access locally
+# logstash will be only pushing from local ...
+network.host: localhost
+
+# this generates errors in the logs ...
+#script.disable_dynamic: true
+
+discovery.zen.ping.multicast.enabled: false
+

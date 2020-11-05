@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ ! -e /var/lib/dbus/machine-id ]
+then
+	# this is normally not needed
+    # on some hardware, it fails to be generated
+	# without this, X has some issues and apps won't run
+	dbus-uuidgen --ensure
+fi
+

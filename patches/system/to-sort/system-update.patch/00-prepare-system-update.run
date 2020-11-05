@@ -1,0 +1,4 @@
+#!/bin/sh
+
+rm -rf   $_ROOT/usr/local/etc/walterjwhite/restart-service
+mkdir -p $_ROOT/usr/local/etc/walterjwhite/restart-service

@@ -1,0 +1,31 @@
+#!/bin/sh
+
+#_NVIDIA_PACKAGES="nvidia-xconfig nvidia-driver-440.64"
+_NVIDIA_PACKAGES="nvidia-xconfig"
+
+_IS_NVIDIA=$(pciconf -lv | grep -ic nvidia)
+if [ "$_IS_NVIDIA" -gt "0" ]
+then
+	_340=$(pciconf -lv | grep -ic "GeForce 8400M")
+	_440=$(pciconf -lv | grep -ic "GeForce GTX 1050 Ti")
+	if [ "$_340" -gt "0" ]
+	then
+		# install nvidia packages
+		_NVIDIA_PACKAGES="${_NVIDIA_PACKAGES} nvidia-driver-340"
+	elif [ "$_440" -gt "0" ]
+	then
+		_NVIDIA_PACKAGES="${_NVIDIA_PACKAGES} nvidia-driver-440.100_1"
+	else
+		echo "OTHER NVIDIA CARD"
+	fi
+
+	pkg install -y $_NVIDIA_PACKAGES
+
+	# copy xorg configuration
+	cp /usr/share/walterjwhite/nvidia.patch/xorg.conf /etc/X11/xorg.conf
+
+	# configure boot loader
+	sysrc -f /boot/loader.conf nvidia_load=YES
+	sysrc -f /boot/loader.conf nvidia-modeset_load=YES
+	sysrc -f /boot/loader.conf linux_enable=YES
+fi

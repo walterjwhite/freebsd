@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# creates an archive of all contents under /var/log
+# useful on systems that are run in memory to perform an analysis on the log files later
+
+_SESSION_TIMESTAMP=$(date +%Y.%m.%d.%H.%M.%S)
+_OUTPUT_FILE=/tmp/logs-${_SESSION_TIMESTAMP}.tar.xz
+
+tar Jcf $_OUTPUT_FILE -C /var/log .

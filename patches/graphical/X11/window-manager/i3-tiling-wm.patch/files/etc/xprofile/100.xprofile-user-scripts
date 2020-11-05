@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [ -d "$HOME/.xprofile" ]
+then
+	logger -i -t  'xprofile-user-scripts' "running scripts in $HOME/.xprofile"
+	
+	find $HOME/.xprofile -type f | xargs -n 1 bash
+else
+	logger -i -t  'xprofile-user-scripts' "$HOME/.xprofile not found"
+fi

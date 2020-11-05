@@ -1,0 +1,10 @@
+#!/bin/sh
+
+cd /tmp
+
+git clone github.com/walterjwhite/install.git\
+    && cd install\
+    && cp app-install app-uninstall /usr/local/sbin\
+    && app-install\
+    && cd ..\
+    && rm -rf install

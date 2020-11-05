@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# PROVIDE: dnstap
+# REQUIRE: DAEMON NETWORKING
+# KEYWORD: shutdown
+
+#
+# Add the following lines to /etc/rc.conf.local, /etc/rc.conf or
+# /etc/rc.conf.d/coredns to enable this service:
+#
+# dnstap_enable (bool):        Set to NO by default.
+#                               Set it to "YES" to enable dnstap.
+# dnstap_listen_sock (str):    Set to "/var/run/dnstap.sock" by default.
+#                               socket to bind to.
+# dnstap_logfile (str):        Set to "/var/log/dnstap" by default.
+#                               log file.
+
+. /etc/rc.subr
+
+name=dnstap
+rcvar=dnstap_enable
+
+load_rc_config $name
+
+: ${dnstap_enable:="NO"}
+: ${dnstap_listen_sock:="/var/run/dnstap.sock"}
+: ${dnstap_logfile:="/var/log/dnstap/dnstap.log"}
+
+pidfile="/var/run/${name}.pid"
+command="/usr/sbin/daemon"
+procname="/usr/local/bin/${name}"
+dnstap_args="-a -w ${dnstap_logfile} -u ${dnstap_listen_sock}"
+command_args="-S -m 3 -s "info" -l "daemon" -p ${pidfile} /usr/bin/env ${procname} ${dnstap_args}"
+
+run_rc_command "$1"

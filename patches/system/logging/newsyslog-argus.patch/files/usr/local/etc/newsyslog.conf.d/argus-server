@@ -1,0 +1,1 @@
+/var/log/argus/argus.out 600 30 * @T00 B

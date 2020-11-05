@@ -1,0 +1,5 @@
+#!/bin/sh
+
+_OPERATION="-"
+
+. /usr/share/walterjwhite/i3-audio-controls/aumix

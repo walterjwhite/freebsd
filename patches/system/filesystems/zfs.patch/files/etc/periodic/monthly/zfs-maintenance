@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# perform scrub on active pools
+zpool scrub $(zpool list | grep -v UNAVAIL | sed 1d | awk {'print$1'} | tr '\n' ' ')

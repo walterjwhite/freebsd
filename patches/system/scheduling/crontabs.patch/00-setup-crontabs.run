@@ -1,0 +1,48 @@
+#!/bin/sh
+
+if [ -n "$_ROOT" ]
+then
+	exit 1
+fi
+
+cd /tmp
+
+rm -rf /tmp/crontab
+mkdir -p /tmp/crontab
+
+_CRONTAB_GROUP=wheel
+
+# setup crontabs
+for user in $(ls /usr/local/etc/walterjwhite/crontabs)
+do
+	# setup permissions
+	chown -R $user:$_CRONTAB_GROUP /usr/local/etc/walterjwhite/crontabs/$user
+
+	# clear the crontab
+	crontab -r -u $user 2>/dev/null
+
+	_temp_crontab=/tmp/crontab/$user
+
+	# disable mail
+	echo "# disable mail"     >> $_temp_crontab
+	echo -e "MAILTO=\"\"\n\n" >> $_temp_crontab
+
+	# set the PATH
+	if [ "$user" = "root" ]
+	then
+		echo -e "PATH=/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/local/sbin:/opt/bin\n\n" >> $_temp_crontab
+	else
+		echo -e "PATH=/usr/local/bin:/usr/bin:/bin:/opt/bin\n\n"                                 >> $_temp_crontab
+	fi
+
+	for script in $(ls /usr/local/etc/walterjwhite/crontabs/$user)
+	do
+		cat /usr/local/etc/walterjwhite/crontabs/$user/$script >> $_temp_crontab
+	done
+
+	#(crontab -l -u $user;cat /etc/crontabs/$user/$script) | crontab -u $user
+	crontab -u $user $_temp_crontab
+	rm -f $_temp_crontab
+done
+
+rm -rf /tmp/crontab
